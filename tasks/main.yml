@@ -1,0 +1,30 @@
+---
+- name: Install PHP and PHP modules
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - apt-transport-https 
+   - lsb-release 
+   - ca-certificates
+   - php7.0-xml 
+   - php7.0-cgi 
+   - php7.0-cli 
+   - php7.0-mysql 
+   - php7.0-mbstring 
+   - php7.0-gd 
+   - php7.0-curl 
+   - php7.0-zip
+
+- name: Ensure NextCloud Folder exists
+  file:
+    path: /opt/nextcloud
+    state: directory
+    
+- name: Download NextCloud Installer
+  get_url:
+    url: https://download.nextcloud.com/server/releases/nextcloud-15.0.0.zip
+    dest: /opt/nextcloud/nextcloud-15.0.0.zip 
+
+# Install Nextcloud
+# Create database
